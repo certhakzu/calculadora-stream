@@ -1,8 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Main {
+
+    public static final Logger logger = Logger.getLogger(String.valueOf(Main.class));
+
 
     public static void main(String[] args) {
 
@@ -14,22 +19,41 @@ public class Main {
         List<Double> multiplicaciones = new ArrayList<>();
         List<Double> divisiones = new ArrayList<>();
 
-        Integer indice = 0;
 
-        sumas = operandos1.stream()
-                .map(valor -> valor + operandos2.get(operandos1.lastIndexOf(valor))).collect(Collectors.toList());
-        System.out.println(sumas);
+        sumas = sumar(operandos1, operandos2);
+        logger.log(Level.INFO, "Suma = " + sumas);
 
-        restas = operandos1.stream()
-                .map(valor -> valor - operandos2.get(operandos1.lastIndexOf(valor))).collect(Collectors.toList());
-        System.out.println(restas);
+        restas = restar(operandos1, operandos2);
+        logger.log(Level.INFO, "Resta = " + restas);
 
-        multiplicaciones = operandos1.stream()
-                .map(valor -> valor * operandos2.get(operandos1.lastIndexOf(valor))).collect(Collectors.toList());
-        System.out.println(multiplicaciones);
+        multiplicaciones = multiplicar(operandos1, operandos2);
+        logger.log(Level.INFO, "Multiplicacion = " + multiplicaciones);
 
-        divisiones = operandos1.stream()
-                .map(valor -> valor / operandos2.get(operandos1.lastIndexOf(valor))).collect(Collectors.toList());
-        System.out.println(divisiones);
+        divisiones = dividir(operandos1, operandos2);
+        logger.log(Level.INFO, "Division = " + divisiones);
+    }
+
+    private static List<Double> sumar(List<Double> array1, List<Double> arra2){
+        return array1.stream()
+                .map(valor -> valor + arra2.get(array1.lastIndexOf(valor)))
+                .collect(Collectors.toList());
+    }
+
+    private static List<Double> restar(List<Double> array1, List<Double> arra2){
+        return array1.stream()
+                .map(valor -> valor - arra2.get(array1.lastIndexOf(valor)))
+                .collect(Collectors.toList());
+    }
+
+    private static List<Double> multiplicar(List<Double> array1, List<Double> arra2){
+        return array1.stream()
+                .map(valor -> valor * arra2.get(array1.lastIndexOf(valor)))
+                .collect(Collectors.toList());
+    }
+
+    private static List<Double> dividir(List<Double> array1, List<Double> arra2){
+        return array1.stream()
+                .map(valor -> valor / (arra2.get(array1.lastIndexOf(valor))))
+                .collect(Collectors.toList());
     }
 }
